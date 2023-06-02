@@ -262,7 +262,7 @@ function reverseInteger(num) {
  *
  * See algorithm here : https://en.wikipedia.org/wiki/Luhn_algorithm
  *
- * @param {number} cnn
+ * @param {number} ccn
  * @return {boolean}
  *
  * @example:
@@ -276,8 +276,20 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  // throw new Error('Not implemented');
+  let sum = 0;
+  const cardNumber = ccn
+    .toString()
+    .split('')
+    .map((el) => +el);
+  const parity = cardNumber.length % 2;
+  for (let i = 0; i < cardNumber.length; i += 1) {
+    if (i % 2 !== parity) sum += cardNumber[i];
+    else if (cardNumber[i] > 4) sum += 2 * cardNumber[i] - 9;
+    else sum += 2 * cardNumber[i];
+  }
+  return sum % 10 === 0;
 }
 
 /**
@@ -294,8 +306,20 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  // throw new Error('Not implemented');
+  let digits = num
+    .toString()
+    .split('')
+    .map((el) => +el);
+  while (digits.length > 1) {
+    digits = digits
+      .reduce((a, x) => a + x, 0)
+      .toString()
+      .split('')
+      .map((el) => +el);
+  }
+  return digits[0];
 }
 
 /**
