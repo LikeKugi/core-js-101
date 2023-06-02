@@ -124,8 +124,14 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  // throw new Error('Not implemented');
+  /* eslint-disable */
+  return !!(
+    rect1.top + rect1.height - rect2.top > 0 &&
+    rect1.left + rect1.width - rect2.left > 0
+  );
+  /* eslint-enable */
 }
 
 /**
@@ -154,8 +160,14 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  // throw new Error('Not implemented');
+  /* eslint-disable */
+  return (
+    (point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2 <
+    circle.radius ** 2
+  );
+  /* eslint-enable */
 }
 
 /**
@@ -169,8 +181,15 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  // throw new Error('Not implemented');
+  // eslint-disable-next-line no-restricted-syntax
+  for (const char of str) {
+    if (str.indexOf(char) === str.lastIndexOf(char)) {
+      return char;
+    }
+  }
+  return null;
 }
 
 /**
@@ -195,8 +214,12 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  // throw new Error('Not implemented');
+  const [start, end] = [Math.min(a, b), Math.max(a, b)];
+  return `${isStartIncluded ? '[' : '('}${start}, ${end}${
+    isEndIncluded ? ']' : ')'
+  }`;
 }
 
 /**
@@ -211,8 +234,9 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  // throw new Error('Not implemented');
+  return str.split('').reverse().join('');
 }
 
 /**
@@ -295,8 +319,25 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const code = {
+    ']': '[',
+    '}': '{',
+    ')': '(',
+    '>': '<',
+  };
+  const opens = ['[', '{', '(', '<'];
+  const closes = [']', '}', ')', '>'];
+  const stack = [];
+  for (let i = 0; i < str.length; i += 1) {
+    if (opens.includes(str[i])) {
+      stack.push(str[i]);
+    } else if (closes.includes(str[i])) {
+      const char = stack.pop();
+      if (code[str[i]] !== char) return false;
+    }
+  }
+  return stack.length === 0;
 }
 
 /**
@@ -319,8 +360,9 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  // throw new Error('Not implemented');
+  return num.toString(n);
 }
 
 /**
