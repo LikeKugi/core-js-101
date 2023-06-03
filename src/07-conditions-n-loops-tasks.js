@@ -79,7 +79,7 @@ function getSumBetweenNumbers(n1, n2) {
  * @param {number} a
  * @param {number} b
  * @param {number} c
- * @return {bool}
+ * @return {boolean}
  *
  * @example:
  *   1,2,3    =>  false
@@ -114,7 +114,7 @@ function isTriangle(a, b, c) {
  *
  * @param {object} rect1
  * @param {object} rect2
- * @return {bool}
+ * @return {boolean}
  *
  * @example:
  *   { top: 0, left: 0, width: 10, height: 10 },
@@ -126,12 +126,10 @@ function isTriangle(a, b, c) {
  */
 function doRectanglesOverlap(rect1, rect2) {
   // throw new Error('Not implemented');
-  /* eslint-disable */
   return !!(
-    rect1.top + rect1.height - rect2.top > 0 &&
-    rect1.left + rect1.width - rect2.left > 0
+    rect1.top + rect1.height - rect2.top > 0
+    && rect1.left + rect1.width - rect2.left > 0
   );
-  /* eslint-enable */
 }
 
 /**
@@ -153,7 +151,7 @@ function doRectanglesOverlap(rect1, rect2) {
  *
  * @param {object} circle
  * @param {object} point
- * @return {bool}
+ * @return {boolean}
  *
  * @example:
  *   { center: { x:0, y:0 }, radius:10 },  { x:0, y:0 }     => true
@@ -162,19 +160,17 @@ function doRectanglesOverlap(rect1, rect2) {
  */
 function isInsideCircle(circle, point) {
   // throw new Error('Not implemented');
-  /* eslint-disable */
   return (
-    (point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2 <
-    circle.radius ** 2
+    (point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2
+    < circle.radius ** 2
   );
-  /* eslint-enable */
 }
 
 /**
- * Returns the first non repeated char in the specified strings otherwise returns null.
+ * Returns the first non-repeated char in the specified strings otherwise returns null.
  *
  * @param {string} str
- * @return {string}
+ * @return {string | null}
  *
  * @example:
  *   'The quick brown fox jumps over the lazy dog' => 'T'
@@ -183,8 +179,8 @@ function isInsideCircle(circle, point) {
  */
 function findFirstSingleChar(str) {
   // throw new Error('Not implemented');
-  // eslint-disable-next-line no-restricted-syntax
-  for (const char of str) {
+  for (let i = 0; i < str.length; i += 1) {
+    const char = str[i];
     if (str.indexOf(char) === str.lastIndexOf(char)) {
       return char;
     }
@@ -201,8 +197,8 @@ function findFirstSingleChar(str) {
  *
  * @param {number} a
  * @param {number} b
- * @param {bool} isStartIncluded
- * @param {bool} isEndIncluded
+ * @param {boolean} isStartIncluded
+ * @param {boolean} isEndIncluded
  * @return {string}
  *
  * @example
@@ -236,7 +232,9 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  */
 function reverseString(str) {
   // throw new Error('Not implemented');
-  return str.split('').reverse().join('');
+  return str.split('')
+    .reverse()
+    .join('');
 }
 
 /**
@@ -253,7 +251,10 @@ function reverseString(str) {
  */
 function reverseInteger(num) {
   // throw new Error('Not implemented');
-  return +num.toString().split('').reverse().join('');
+  return +num.toString()
+    .split('')
+    .reverse()
+    .join('');
 }
 
 /**
@@ -285,9 +286,13 @@ function isCreditCardNumber(ccn) {
     .map((el) => +el);
   const parity = cardNumber.length % 2;
   for (let i = 0; i < cardNumber.length; i += 1) {
-    if (i % 2 !== parity) sum += cardNumber[i];
-    else if (cardNumber[i] > 4) sum += 2 * cardNumber[i] - 9;
-    else sum += 2 * cardNumber[i];
+    if (i % 2 !== parity) {
+      sum += cardNumber[i];
+    } else if (cardNumber[i] > 4) {
+      sum += 2 * cardNumber[i] - 9;
+    } else {
+      sum += 2 * cardNumber[i];
+    }
   }
   return sum % 10 === 0;
 }
@@ -297,7 +302,7 @@ function isCreditCardNumber(ccn) {
  *   step1 : find sum of all digits
  *   step2 : if sum > 9 then goto step1 otherwise return the sum
  *
- * @param {number} n
+ * @param {number} num
  * @return {number}
  *
  * @example:
